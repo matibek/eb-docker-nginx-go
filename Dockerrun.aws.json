@@ -17,19 +17,14 @@
   "containerDefinitions": [
     {
       "name": "go-app",
-      "image": "golang:1.6-onbuild",
+      "image": "matibek/go-app",
       "essential": true,
       "memory": 128,
-      "portMappings": [
-        {
-          "hostPort": 3000,
-          "containerPort": 3000
-        }
-      ],
       "mountPoints": [
         {
           "sourceVolume": "go-app",
-          "containerPath": "/go/src/app"
+          "containerPath": "/go/src/app",
+          "readOnly": true
         }
       ]
     },
@@ -48,6 +43,11 @@
         "go-app"
       ],
       "mountPoints": [
+        {
+          "sourceVolume": "go-app",
+          "containerPath": "/var/www/html",
+          "readOnly": true
+        },
         {
           "sourceVolume": "awseb-logs-nginx-proxy",
           "containerPath": "/var/log/nginx"
